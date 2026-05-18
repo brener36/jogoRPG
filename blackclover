@@ -1,0 +1,582 @@
+import random
+import time
+
+# LOGO
+
+print(r"""
+
+██████╗ ██╗      █████╗  ██████╗██╗  ██╗     ██████╗██╗      ██████╗ ██╗   ██╗███████╗██████╗ 
+██╔══██╗██║     ██╔══██╗██╔════╝██║ ██╔╝    ██╔════╝██║     ██╔═══██╗██║   ██║██╔════╝██╔══██╗
+██████╔╝██║     ███████║██║     █████╔╝     ██║     ██║     ██║   ██║██║   ██║█████╗  ██████╔╝
+██╔══██╗██║     ██╔══██║██║     ██╔═██╗     ██║     ██║     ██║   ██║╚██╗ ██╔╝██╔══╝  ██╔══██╗
+██████╔╝███████╗██║  ██║╚██████╗██║  ██╗    ╚██████╗███████╗╚██████╔╝ ╚████╔╝ ███████╗██║  ██║
+╚═════╝ ╚══════╝╚═╝  ╚═╝ ╚═════╝╚═╝  ╚═╝     ╚═════╝╚══════╝ ╚═════╝   ╚═══╝  ╚══════╝╚═╝  ╚═╝
+
+""")
+
+# ==== PERSONAGEM ====
+
+jogador = {
+    "nome": "",
+    "classe": "",
+    "vida": 100,
+    "vida_max": 100,
+    "mana": 100,
+    "mana_max": 100,
+    "ataque": 10,
+    "grimorio": "",
+    "magias": [],
+    "inventario": [],
+}
+
+# ==== INIMIGOS ====
+
+inimigos = [
+    {"nome": "bandido", "vida": 50, "ataque": 5},
+    {"nome": "cavaleiro magico", "vida": 80, "ataque": 8},
+    {"nome": "soldado de spade", "vida": 120, "ataque": 12},
+    {"nome": "desespero", "vida": 150, "ataque": 20},
+    {"nome": "patrick (elfo)", "vida": 180, "ataque": 25},
+    {"nome": "zagred (demonio)", "vida": 200, "ataque": 30},
+    {"nome": "dante (demonio)", "vida": 250, "ataque": 35},
+    {"nome": "lucifero (demonio)", "vida": 250, "ataque": 35},
+]
+
+# ==== BOSS ====
+
+boss = {
+    "nome": "lucius zogratis",
+    "vida": 500,
+    "ataque": 40
+}
+
+# ==== GRIMORIOS ====
+
+grimorios = {
+
+    "FOGO": {
+        "raridade": "Comum",
+        "magias": [
+            {"nome": "Bola de Fogo", "dano": 30, "mana": 20},
+            {"nome": "Explosão Flamejante", "dano": 50, "mana": 35}
+        ]
+    },
+
+    "AGUA": {
+        "raridade": "Comum",
+        "magias": [
+            {"nome": "Tsunami", "dano": 25, "mana": 15},
+            {"nome": "Dragão de Água", "dano": 45, "mana": 30}
+        ]
+    },
+
+    "VENTO": {
+        "raridade": "Comum",
+        "magias": [
+            {"nome": "Lâmina de Vento", "dano": 28, "mana": 18},
+            {"nome": "Tempestade Divina", "dano": 55, "mana": 40}
+        ]
+    },
+
+    "TERRA": {
+        "raridade": "Comum",
+        "magias": [
+            {"nome": "Muralha de Pedra", "dano": 20, "mana": 15},
+            {"nome": "Punho Sísmico", "dano": 45, "mana": 35}
+        ]
+    },
+
+    "RAIO": {
+        "raridade": "Raro",
+        "magias": [
+            {"nome": "Relâmpago", "dano": 40, "mana": 25},
+            {"nome": "Dragão Elétrico", "dano": 70, "mana": 45}
+        ]
+    },
+
+    "GELO": {
+        "raridade": "Raro",
+        "magias": [
+            {"nome": "Lança Congelante", "dano": 35, "mana": 20},
+            {"nome": "Era Glacial", "dano": 65, "mana": 45}
+        ]
+    },
+
+    "PLANTA": {
+        "raridade": "Raro",
+        "magias": [
+            {"nome": "Vinhas Mortais", "dano": 30, "mana": 20},
+            {"nome": "Floresta Viva", "dano": 60, "mana": 40}
+        ]
+    },
+
+    "FERRO": {
+        "raridade": "Raro",
+        "magias": [
+            {"nome": "Espada Metálica", "dano": 38, "mana": 22},
+            {"nome": "Chuva de Ferro", "dano": 70, "mana": 50}
+        ]
+    },
+
+    "LUZ": {
+        "raridade": "Lendário",
+        "magias": [
+            {"nome": "Espada de Luz", "dano": 55, "mana": 30},
+            {"nome": "Julgamento Divino", "dano": 90, "mana": 60}
+        ]
+    },
+
+    "TREVA": {
+        "raridade": "Lendário",
+        "magias": [
+            {"nome": "Corte Sombrio", "dano": 50, "mana": 30},
+            {"nome": "Buraco Negro", "dano": 95, "mana": 65}
+        ]
+    },
+
+    "TEMPO": {
+        "raridade": "Lendário",
+        "magias": [
+            {"nome": "Parada Temporal", "dano": 60, "mana": 40},
+            {"nome": "Roubo de Tempo", "dano": 100, "mana": 70}
+        ]
+    },
+
+    "ESPACIAL": {
+        "raridade": "Lendário",
+        "magias": [
+            {"nome": "Portal Dimensional", "dano": 55, "mana": 35},
+            {"nome": "Colapso Espacial", "dano": 100, "mana": 70}
+        ]
+    },
+
+    "SANGUE": {
+        "raridade": "Proibido",
+        "magias": [
+            {"nome": "Lança Sangrenta", "dano": 65, "mana": 40},
+            {"nome": "Mar de Sangue", "dano": 120, "mana": 80}
+        ]
+    },
+
+    "OSSO": {
+        "raridade": "Proibido",
+        "magias": [
+            {"nome": "Prisão Óssea", "dano": 60, "mana": 35},
+            {"nome": "Exército de Ossos", "dano": 115, "mana": 75}
+        ]
+    },
+
+    "GRAVIDADE": {
+        "raridade": "Proibido",
+        "magias": [
+            {"nome": "Pressão Gravitacional", "dano": 70, "mana": 45},
+            {"nome": "Buraco Gravitacional", "dano": 130, "mana": 90}
+        ]
+    },
+
+    "ANTI MAGIA": {
+        "raridade": "Mítico",
+        "magias": [
+            {"nome": "Black Slash", "dano": 80, "mana": 35},
+            {"nome": "Black Divider", "dano": 140, "mana": 90}
+        ]
+    }
+}
+
+# ==== VISUAL ====
+
+def barra_vida(atual, maximo):
+    tamanho = 20
+    proporcao = atual / maximo
+    cheio = int(proporcao * tamanho)
+    return "█" * cheio + "-" * (tamanho - cheio)
+
+def limpar():
+    print("\n" * 3)
+
+# ==== CRIAR PERSONAGEM ====
+
+def criar_personagem():
+
+    print("Bem-vindo ao mundo de Black Clover!")
+
+    jogador["nome"] = input("Digite o nome do seu personagem: ")
+
+    print("Escolha sua classe:")
+    print("1. HUMANO")
+    print("2. BRUXA")
+    print("3. ELFOS")
+    print("4. DEMONIO")
+    print("5. PALADINO")
+    print("6. ANÃO")
+    print("7. HIBRIDO")
+
+    escolha = input("Escolha: ")
+
+    if escolha == "1":
+        jogador["classe"] = "HUMANO"
+        jogador["vida"] = 100
+        jogador["vida_max"] = 100
+        jogador["ataque"] = 10
+        jogador["mana"] = 100
+        jogador["mana_max"] = 100
+
+    elif escolha == "2":
+        jogador["classe"] = "BRUXA"
+        jogador["vida"] = 120
+        jogador["vida_max"] = 120
+        jogador["ataque"] = 15
+        jogador["mana"] = 200
+        jogador["mana_max"] = 200
+
+    elif escolha == "3":
+        jogador["classe"] = "ELFOS"
+        jogador["vida"] = 150
+        jogador["vida_max"] = 150
+        jogador["ataque"] = 20
+        jogador["mana"] = 300
+        jogador["mana_max"] = 300
+
+    elif escolha == "4":
+        jogador["classe"] = "DEMONIO"
+        jogador["vida"] = 200
+        jogador["vida_max"] = 200
+        jogador["ataque"] = 25
+        jogador["mana"] = 150
+        jogador["mana_max"] = 150
+
+    elif escolha == "5":
+        jogador["classe"] = "PALADINO"
+        jogador["vida"] = 250
+        jogador["vida_max"] = 250
+        jogador["ataque"] = 30
+        jogador["mana"] = 350
+        jogador["mana_max"] = 350
+
+    elif escolha == "6":
+        jogador["classe"] = "ANÃO"
+        jogador["vida"] = 120
+        jogador["vida_max"] = 120
+        jogador["ataque"] = 15
+        jogador["mana"] = 90
+        jogador["mana_max"] = 90
+
+    else:
+        jogador["classe"] = "HIBRIDO"
+        jogador["vida"] = 180
+        jogador["vida_max"] = 180
+        jogador["ataque"] = 20
+        jogador["mana"] = 130
+        jogador["mana_max"] = 130
+
+    print(f"\n🧙 {jogador['nome']} o {jogador['classe']} entrou na aventura!")
+    time.sleep(1)
+
+# ==== STATUS ====
+
+def mostrar_status():
+
+    print(f"\n{jogador['nome']} - {jogador['classe']}")
+    print(f"Vida: {barra_vida(jogador['vida'], jogador['vida_max'])} {jogador['vida']}/{jogador['vida_max']}")
+    print(f"Mana: {barra_vida(jogador['mana'], jogador['mana_max'])} {jogador['mana']}/{jogador['mana_max']}")
+    print(f"Ataque: {jogador['ataque']}")
+    print(f"Grimório: {jogador['grimorio']}")
+    print(f"Inventário: {', '.join(jogador['inventario']) if jogador['inventario'] else 'Vazio'}")
+
+# ==== GRIMORIO ====
+
+def escolher_grimorio():
+
+    print("\n📖 ESCOLHA SEU GRIMÓRIO 📖\n")
+
+    lista_grimorios = list(grimorios.keys())
+
+    for i, grimorio in enumerate(lista_grimorios):
+        raridade = grimorios[grimorio]["raridade"]
+        print(f"{i+1}. {grimorio} ({raridade})")
+
+    escolha = int(input("\nDigite o número do grimório: ")) - 1
+
+    grimorio_escolhido = lista_grimorios[escolha]
+
+    jogador["grimorio"] = grimorio_escolhido
+    jogador["magias"] = grimorios[grimorio_escolhido]["magias"]
+
+    print(f"\n✨ Você recebeu o grimório de {grimorio_escolhido}!")
+
+# ==== ITENS ====
+
+def usar_item_combate(inimigo):
+
+    if not jogador["inventario"]:
+        print("\n🎒 Seu inventário está vazio!")
+        time.sleep(1)
+        return False
+
+    print("\n🧪 Itens disponíveis:")
+
+    for i, item in enumerate(jogador["inventario"]):
+        print(f"{i+1} - {item}")
+
+    print("0 - Voltar")
+
+    escolha = input("Escolha um item: ")
+
+    if escolha == "0":
+        return False
+
+    try:
+        indice = int(escolha) - 1
+        item = jogador["inventario"][indice]
+
+    except (ValueError, IndexError):
+        print("\nOpção inválida!")
+        time.sleep(1)
+        return False
+
+    jogador["inventario"].pop(indice)
+
+    nome_item = item.lower()
+
+    if "vida" in nome_item or "cura" in nome_item:
+
+        cura = 50
+        jogador["vida"] = min(jogador["vida"] + cura, jogador["vida_max"])
+
+        print(f"\n❤️ Você usou {item} e recuperou {cura} de vida!")
+
+    elif "mana" in nome_item:
+
+        recupera = 50
+        jogador["mana"] = min(jogador["mana"] + recupera, jogador["mana_max"])
+
+        print(f"\n🔮 Você usou {item} e recuperou {recupera} de mana!")
+
+    else:
+
+        dano = 30
+        inimigo["vida"] -= dano
+
+        print(f"\n💣 Você usou {item} e causou {dano} de dano no inimigo!")
+
+    time.sleep(1)
+    return True
+
+# ==== BATALHA ====
+
+def batalha():
+
+    inimigo = random.choice(inimigos).copy()
+
+    vida_max_inimigo = inimigo["vida"]
+
+    print(f"\n⚔️ Um {inimigo['nome']} apareceu!")
+
+    time.sleep(1)
+
+    while inimigo["vida"] > 0 and jogador["vida"] > 0:
+
+        limpar()
+
+        print("=" * 30)
+        print(f"🧙 {jogador['nome']}")
+        print(f"[{barra_vida(jogador['vida'], jogador['vida_max'])}] {jogador['vida']}")
+
+        print(f"\n👹 {inimigo['nome']}")
+        print(f"[{barra_vida(inimigo['vida'], vida_max_inimigo)}] {inimigo['vida']}")
+        print("=" * 30)
+
+        print("\n1 - Atacar")
+        print("2 - Usar item")
+        print("3 - Fugir")
+
+        escolha = input("Escolha: ")
+
+        # TURNO DO JOGADOR
+
+        if escolha == "1":
+
+            print("\n⚔️ Você atacou!")
+
+            inimigo["vida"] -= jogador["ataque"]
+
+            print(f"💥 Dano causado: {jogador['ataque']}")
+
+            time.sleep(1)
+
+        elif escolha == "2":
+
+            usou = usar_item_combate(inimigo)
+
+            if not usou:
+                continue
+
+        elif escolha == "3":
+
+            print("\n🏃 Você fugiu!")
+
+            time.sleep(1)
+
+            return
+
+        else:
+
+            print("\n❌ Opção inválida!")
+            time.sleep(1)
+            continue
+
+        # INIMIGO MORREU
+
+        if inimigo["vida"] <= 0:
+            break
+
+        # TURNO DO INIMIGO
+
+        print("\n👹 O inimigo atacou!")
+
+        jogador["vida"] -= inimigo["ataque"]
+
+        print(f"⚠️ Você recebeu {inimigo['ataque']} de dano!")
+
+        time.sleep(1)
+
+    # RESULTADO
+
+    if jogador["vida"] > 0:
+
+        print(f"\n🏆 Você derrotou {inimigo['nome']}!")
+
+    else:
+
+        print("\n💀 Você foi derrotado!")
+
+        exit()
+
+    time.sleep(2)
+
+# ==== BATALHA BOSS ====
+
+def batalha_boss():
+
+    inimigo = boss.copy()
+
+    vida_max = inimigo["vida"]
+
+    print(f"\n👑 O {inimigo['nome']} apareceu!")
+
+    time.sleep(1)
+
+    while inimigo["vida"] > 0 and jogador["vida"] > 0:
+
+        limpar()
+
+        print("=" * 30)
+
+        print(f"🧙 {jogador['nome']}")
+        print(f"[{barra_vida(jogador['vida'], jogador['vida_max'])}] {jogador['vida']}")
+
+        print(f"\n👑 {inimigo['nome']}")
+        print(f"[{barra_vida(inimigo['vida'], vida_max)}] {inimigo['vida']}")
+
+        print("=" * 30)
+
+        print("\n1 - Atacar")
+        print("2 - Usar item")
+
+        op = input("Escolha: ")
+
+        # TURNO DO JOGADOR
+
+        if op == "1":
+
+            print("\n⚔️ Você atacou!")
+
+            inimigo["vida"] -= jogador["ataque"]
+
+            print(f"💥 Dano causado: {jogador['ataque']}")
+
+            time.sleep(1)
+
+        elif op == "2":
+
+            usou = usar_item_combate(inimigo)
+
+            if not usou:
+                continue
+
+        else:
+
+            print("\n❌ Opção inválida!")
+            time.sleep(1)
+            continue
+
+        # BOSS MORREU
+
+        if inimigo["vida"] <= 0:
+            break
+
+        # TURNO DO BOSS
+
+        print("\n👑 O boss atacou!")
+
+        jogador["vida"] -= inimigo["ataque"]
+
+        print(f"⚠️ Você recebeu {inimigo['ataque']} de dano!")
+
+        time.sleep(1)
+
+    # RESULTADO
+
+    if jogador["vida"] > 0:
+
+        print(f"\n🏆 Você derrotou {boss['nome']}!")
+        print("🎉 ZEROU O JOGO!")
+
+    else:
+
+        print("\n💀 Você morreu para o boss...")
+
+    exit()
+
+# ==== INICIO ====
+
+criar_personagem()
+escolher_grimorio()
+
+# ==== MENU ====
+
+while True:
+
+    limpar()
+
+    print("\n=== MENU ===")
+    print("1 - Batalhar")
+    print("2 - Status")
+    print("3 - Boss Final")
+    print("4 - Sair")
+
+    op = input("Escolha: ")
+
+    if op == "1":
+
+        batalha()
+
+    elif op == "2":
+
+        mostrar_status()
+
+        input("\nPressione ENTER para continuar...")
+
+    elif op == "3":
+
+        batalha_boss()
+
+    elif op == "4":
+
+        print("\n👋 Saindo do jogo...")
+        break
+
+    else:
+
+        print("\n❌ Opção inválida!")
+        time.sleep(1)
