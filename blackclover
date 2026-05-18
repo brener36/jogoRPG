@@ -19,10 +19,10 @@ print(r"""
 jogador = {
     "nome": "",
     "classe": "",
-    "vida": 100,
-    "vida_max": 100,
-    "mana": 100,
-    "mana_max": 100,
+    "vida": 1000,
+    "vida_max": 1000,
+    "mana": 1000,
+    "mana_max": 1000,
     "ataque": 10,
     "grimorio": "",
     "magias": [],
@@ -33,23 +33,30 @@ jogador = {
 
 inimigos = [
     {"nome": "bandido", "vida": 50, "ataque": 5},
-    {"nome": "cavaleiro magico", "vida": 80, "ataque": 8},
+    {"nome": "cavaleiro magico", "vida": 100, "ataque": 8},
     {"nome": "soldado de spade", "vida": 120, "ataque": 12},
     {"nome": "desespero", "vida": 150, "ataque": 20},
     {"nome": "patrick (elfo)", "vida": 180, "ataque": 25},
     {"nome": "zagred (demonio)", "vida": 200, "ataque": 30},
     {"nome": "dante (demonio)", "vida": 250, "ataque": 35},
-    {"nome": "lucifero (demonio)", "vida": 250, "ataque": 35},
+    {"nome": "fana", "vida": 180, "ataque": 40},
+    {"nome": "vanica (demonio)", "vida": 250, "ataque": 40},
+    {"nome": "zenon (demonio)", "vida": 300, "ataque": 40},
+    {"nome": "soldado do reino diamond", "vida": 100, "ataque": 8},
+    {"nome": "paladino", "vida": 450, "ataque": 40}
+    
 ]
 
 # ==== BOSS ====
 
-boss = {
-    "nome": "lucius zogratis",
-    "vida": 1000,
-    "ataque": 200
-}
-
+boss = [
+    {"nome": "LUCIUS ZOGRATIS (paladino)", "vida": 2000, "ataque": 120},
+    {"nome": "RAINHA DAS BRUXAS", "vida": 1500, "ataque": 95},
+    {"nome": "LICHT (elfo)", "vida": 700, "ataque": 70},
+    {"nome": "LUCIFERO (demonio)", "vida": 900, "ataque": 90},
+    {"nome": "MEGICULA (demonio)", "vida": 800, "ataque": 80},
+    {"nome": "BELZEBU (demonio)", "vida": 800, "ataque": 80},
+]
 # ==== GRIMORIOS ====
 
 grimorios = {
@@ -58,7 +65,8 @@ grimorios = {
         "raridade": "Comum",
         "magias": [
             {"nome": "Bola de Fogo", "dano": 30, "mana": 20},
-            {"nome": "Explosão Flamejante", "dano": 50, "mana": 35}
+            {"nome": "Explosão Flamejante", "dano": 50, "mana": 35},
+            {"nome": "Inferno", "dano": 80, "mana": 50}
         ]
     },
 
@@ -66,7 +74,8 @@ grimorios = {
         "raridade": "Comum",
         "magias": [
             {"nome": "Tsunami", "dano": 25, "mana": 15},
-            {"nome": "Dragão de Água", "dano": 45, "mana": 30}
+            {"nome": "Dragão de Água", "dano": 45, "mana": 30},
+            {"nome": "Maremoto", "dano": 75, "mana": 45}
         ]
     },
 
@@ -74,7 +83,8 @@ grimorios = {
         "raridade": "Comum",
         "magias": [
             {"nome": "Lâmina de Vento", "dano": 28, "mana": 18},
-            {"nome": "Tempestade Divina", "dano": 55, "mana": 40}
+            {"nome": "Tempestade Divina", "dano": 55, "mana": 40},
+            {"nome": "Furacão", "dano": 85, "mana": 60}
         ]
     },
 
@@ -82,15 +92,17 @@ grimorios = {
         "raridade": "Comum",
         "magias": [
             {"nome": "Muralha de Pedra", "dano": 20, "mana": 15},
-            {"nome": "Punho Sísmico", "dano": 45, "mana": 35}
+            {"nome": "Punho Sísmico", "dano": 45, "mana": 35},
+            {"nome": "Terremoto", "dano": 70, "mana": 50}
         ]
     },
 
     "RAIO": {
         "raridade": "Raro",
         "magias": [
-            {"nome": "Relâmpago", "dano": 40, "mana": 25},
-            {"nome": "Dragão Elétrico", "dano": 70, "mana": 45}
+            {"nome": "Relâmpago", "dano": 40, "mana": 45},
+            {"nome": "Dragão Elétrico", "dano": 70, "mana": 65},
+            {"nome": "Tempestade Elétrica", "dano": 100, "mana": 75}
         ]
     },
 
@@ -98,7 +110,8 @@ grimorios = {
         "raridade": "Raro",
         "magias": [
             {"nome": "Lança Congelante", "dano": 35, "mana": 20},
-            {"nome": "Era Glacial", "dano": 65, "mana": 45}
+            {"nome": "Era Glacial", "dano": 65, "mana": 65},
+            {"nome": "Tempestade de Gelo", "dano": 90, "mana": 95}
         ]
     },
 
@@ -106,7 +119,8 @@ grimorios = {
         "raridade": "Raro",
         "magias": [
             {"nome": "Vinhas Mortais", "dano": 30, "mana": 20},
-            {"nome": "Floresta Viva", "dano": 60, "mana": 40}
+            {"nome": "Floresta Viva", "dano": 60, "mana": 95},
+            {"nome": "Raízes Enredantes", "dano": 85, "mana": 55}
         ]
     },
 
@@ -114,7 +128,8 @@ grimorios = {
         "raridade": "Raro",
         "magias": [
             {"nome": "Espada Metálica", "dano": 38, "mana": 22},
-            {"nome": "Chuva de Ferro", "dano": 70, "mana": 50}
+            {"nome": "Chuva de Ferro", "dano": 70, "mana": 95},
+            {"nome": "Golem de Ferro", "dano": 95, "mana": 70}
         ]
     },
 
@@ -122,7 +137,8 @@ grimorios = {
         "raridade": "Lendário",
         "magias": [
             {"nome": "Espada de Luz", "dano": 55, "mana": 30},
-            {"nome": "Julgamento Divino", "dano": 90, "mana": 60}
+            {"nome": "Julgamento Divino", "dano": 90, "mana": 85},
+            {"nome": "Raio Celestial", "dano": 120, "mana": 75}
         ]
     },
 
@@ -130,7 +146,8 @@ grimorios = {
         "raridade": "Lendário",
         "magias": [
             {"nome": "Corte Sombrio", "dano": 50, "mana": 30},
-            {"nome": "Buraco Negro", "dano": 95, "mana": 65}
+            {"nome": "Buraco Negro", "dano": 95, "mana": 95},
+            {"nome": "Eclipse Total", "dano": 130, "mana": 125}
         ]
     },
 
@@ -138,7 +155,9 @@ grimorios = {
         "raridade": "Lendário",
         "magias": [
             {"nome": "Parada Temporal", "dano": 60, "mana": 40},
-            {"nome": "Roubo de Tempo", "dano": 100, "mana": 70}
+            {"nome": "Roubo de Tempo", "dano": 100, "mana": 70},
+            {"nome": "Tempestade Temporal", "dano": 150, "mana": 100},
+            {"nome": "Apocalipse Temporal", "dano": 200, "mana": 150}
         ]
     },
 
@@ -146,39 +165,49 @@ grimorios = {
         "raridade": "Lendário",
         "magias": [
             {"nome": "Portal Dimensional", "dano": 55, "mana": 35},
-            {"nome": "Colapso Espacial", "dano": 100, "mana": 70}
+            {"nome": "Colapso Espacial", "dano": 100, "mana": 290},
+            {"nome": "Ruptura Espacial", "dano": 150, "mana": 400}
         ]
     },
 
     "SANGUE": {
         "raridade": "Proibido",
         "magias": [
-            {"nome": "Lança Sangrenta", "dano": 65, "mana": 40},
-            {"nome": "Mar de Sangue", "dano": 120, "mana": 80}
+            {"nome": "Lança Sangrenta", "dano": 65, "mana": 150},
+            {"nome": "Mar de Sangue", "dano": 120, "mana": 200},
+            {"nome": "Sacrifício Sangrento", "dano": 180, "mana": 300},
+            {"nome": "Apocalipse Sangrento", "dano": 250, "mana": 500}
         ]
     },
 
     "OSSO": {
         "raridade": "Proibido",
         "magias": [
-            {"nome": "Prisão Óssea", "dano": 60, "mana": 35},
-            {"nome": "Exército de Ossos", "dano": 115, "mana": 75}
+            {"nome": "Prisão Óssea", "dano": 60, "mana": 275},
+            {"nome": "Exército de Ossos", "dano": 115, "mana": 365},
+            {"nome": "Colapso Ósseo", "dano": 170, "mana": 450},
+            {"nome": "Apocalipse Ósseo", "dano": 230, "mana": 600}
         ]
     },
 
     "GRAVIDADE": {
         "raridade": "Proibido",
         "magias": [
-            {"nome": "Pressão Gravitacional", "dano": 70, "mana": 45},
-            {"nome": "Buraco Gravitacional", "dano": 130, "mana": 90}
+            {"nome": "Pressão Gravitacional", "dano": 70, "mana": 150},
+            {"nome": "Buraco Gravitacional", "dano": 130, "mana": 350},
+            {"nome": "Colapso Gravitacional", "dano": 200, "mana": 500},
+            {"nome": "Apocalipse Gravitacional", "dano": 300, "mana": 800}
         ]
     },
 
     "ANTI MAGIA": {
         "raridade": "Mítico",
         "magias": [
-            {"nome": "Black Slash", "dano": 80, "mana": 35},
-            {"nome": "Black Divider", "dano": 140, "mana": 90}
+            {"nome": "Black Slash", "dano": 80, "mana": 0},
+            {"nome": "Black Divider", "dano": 140, "mana": 0},
+            {"nome": "Black Hole", "dano": 220, "mana": 0},
+            {"nome": "Apocalipse Anti Magia", "dano": 350, "mana": 0},
+            {"nome": "Black Death", "dano": 500, "mana": 0}
         ]
     }
 }
@@ -215,59 +244,59 @@ def criar_personagem():
 
     if escolha == "1":
         jogador["classe"] = "HUMANO"
-        jogador["vida"] = 100
-        jogador["vida_max"] = 100
+        jogador["vida"] = 300
+        jogador["vida_max"] = 300
         jogador["ataque"] = 10
         jogador["mana"] = 100
         jogador["mana_max"] = 100
 
     elif escolha == "2":
         jogador["classe"] = "BRUXA"
-        jogador["vida"] = 120
-        jogador["vida_max"] = 120
+        jogador["vida"] = 450
+        jogador["vida_max"] = 450
         jogador["ataque"] = 15
-        jogador["mana"] = 200
-        jogador["mana_max"] = 200
+        jogador["mana"] = 500
+        jogador["mana_max"] = 500
 
     elif escolha == "3":
         jogador["classe"] = "ELFOS"
-        jogador["vida"] = 150
-        jogador["vida_max"] = 150
+        jogador["vida"] = 650
+        jogador["vida_max"] = 650
         jogador["ataque"] = 20
-        jogador["mana"] = 300
-        jogador["mana_max"] = 300
+        jogador["mana"] = 800
+        jogador["mana_max"] = 800
 
     elif escolha == "4":
         jogador["classe"] = "DEMONIO"
-        jogador["vida"] = 200
-        jogador["vida_max"] = 200
+        jogador["vida"] = 1000
+        jogador["vida_max"] = 1000
         jogador["ataque"] = 25
-        jogador["mana"] = 150
-        jogador["mana_max"] = 150
+        jogador["mana"] = 1000
+        jogador["mana_max"] = 1000
 
     elif escolha == "5":
         jogador["classe"] = "PALADINO"
-        jogador["vida"] = 250
-        jogador["vida_max"] = 250
+        jogador["vida"] = 1000
+        jogador["vida_max"] = 1000
         jogador["ataque"] = 30
-        jogador["mana"] = 350
-        jogador["mana_max"] = 350
+        jogador["mana"] = 1000
+        jogador["mana_max"] = 1000
 
     elif escolha == "6":
         jogador["classe"] = "ANÃO"
-        jogador["vida"] = 120
-        jogador["vida_max"] = 120
+        jogador["vida"] = 275
+        jogador["vida_max"] = 275
         jogador["ataque"] = 15
-        jogador["mana"] = 90
-        jogador["mana_max"] = 90
+        jogador["mana"] = 250
+        jogador["mana_max"] = 250
 
     else:
         jogador["classe"] = "HIBRIDO"
-        jogador["vida"] = 180
-        jogador["vida_max"] = 180
+        jogador["vida"] = 375
+        jogador["vida_max"] = 375
         jogador["ataque"] = 20
-        jogador["mana"] = 130
-        jogador["mana_max"] = 130
+        jogador["mana"] = 300
+        jogador["mana_max"] = 300
 
     print(f"\n🧙 {jogador['nome']} o {jogador['classe']} entrou na aventura!")
     time.sleep(1)
@@ -306,6 +335,23 @@ def escolher_grimorio():
 
 # ==== ITENS ====
 
+itens_recompensa = [
+    "Poção de Vida",
+    "Poção de Mana",
+    "Elixir de Cura",
+    "Pergaminho Arcano",
+    "Cristal Místico",
+    "Ampola de Energia",
+    "Bênção do Grimório"
+]
+
+def ganhar_item_vitoria():
+    item = random.choice(itens_recompensa)
+    jogador["inventario"].append(item)
+    print(f"\n🎁 Você ganhou um item: {item}!")
+    time.sleep(1)
+
+
 def usar_item_combate(inimigo):
 
     if not jogador["inventario"]:
@@ -340,17 +386,16 @@ def usar_item_combate(inimigo):
 
     if "vida" in nome_item or "cura" in nome_item:
 
-        cura = 50
+        cura = 100
         jogador["vida"] = min(jogador["vida"] + cura, jogador["vida_max"])
 
         print(f"\n❤️ Você usou {item} e recuperou {cura} de vida!")
 
     elif "mana" in nome_item:
 
-        recupera = 50
-        jogador["mana"] = min(jogador["mana"] + recupera, jogador["mana_max"])
-
+        recupera = 500
         print(f"\n🔮 Você usou {item} e recuperou {recupera} de mana!")
+        jogador["mana"] = min(jogador["mana"] + recupera, jogador["mana_max"])
 
     else:
 
@@ -496,6 +541,7 @@ def batalha():
     if jogador["vida"] > 0:
 
         print(f"\n🏆 Você derrotou {inimigo['nome']}!")
+        ganhar_item_vitoria()
 
     else:
 
@@ -589,7 +635,7 @@ def batalha_boss():
     if jogador["vida"] > 0:
 
         print(f"\n🏆 Você derrotou {boss['nome']}!")
-        print("🎉 ZEROU O JOGO!")
+        print("🎉 VOCE SE TORNOU O REI MAGO")
 
     else:
 
